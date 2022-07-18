@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ejs con un for of que muestra solamente los nombres de los grados -->
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Grado</th>
+            <th>Descripcion</th>
+            <th>Seccion</th>
+        </thead>
+        <tbody>
+            <% for(element of locals.valuesGrades) { %>
+                <tr>
+                    <td><%= element.id %> </td>
+                    <td><%= element.grade%> </td>
+                    <td><%= element.detail %> </td>
+                    <td><%= element.section%> </td>
+                </tr>
+            <% } %>
+            </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <% let id =  String(locals.id).slice(1,) || "" %> 
+    <% let abscence = locals.valuesAbsences.valuesAbsences.find(el=> el.id == id)%> 
+    <p><%= JSON.stringify(abscence) %> </p>
+
+    <% let schedules = locals.schedulesByTeacher.schedulesByTeacher%>
+    <% let classSchedule = schedules.find((el)=>el.idClass == abscence.idClass) %> 
+    <% let days = classSchedule.days.filter((el)=> el[1] == "TRUE") %> 
+    <% let daysMap = []%>
+    <% days.map((el)=> daysMap.push({"Name":el[0], "Day": el[1], "Hours": el[2]})) %>  
+     <%# console.log(JSON.stringify(daysMap))%> 
+    <% let jsonDays = JSON.stringify({'days': daysMap}) %> 
+
+    <% let daysNames = days.map((el)=> el[0]) %>
+    <p><%= daysNames %> </p>
+
+    
+<div class="container">
+    <div class="title_box">Formulario Beta</div>
+    <form action="/update:<%=abscence.id%> " method="post">
+        <div class="input_box">
+        <div class="sub_input_box_row">
+            <div class="input_container">
+                <label for="">Grado</label>
+                <select required class="form_input_rdborder" id="classes" name="class" onchange="getId()" >
+                    <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
+                        la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
+                        en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
+                    <% for(item of locals.dataClasses.dataClasses) { %>
+                    <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
+                    y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
+                    (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
+                        <option <%= (String(abscence.idClass) == item.id) ? "selected" : "" %>  value="<%=item.id%>"><%= item.detail + " - " + String(item.idGrade).slice(12) %></option>
+                    <% } %>
+                </select>
+            </div>
+   
+    <div class="input_container">
+        <label>Estudiante</label>
+        <select required class="form_input_rdborder" id="classes" name="student" onchange="getId()">
+            <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
+                la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
+                en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
+            <% for(item of locals.valuesStudents.valuesStudents.filter( el => el.idGrade == abscence.idGrade )) { %>
+            <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
+            y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
+            (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
+                <option <%= (String(abscence.idStudent) == item.id) ? "selected" : "" %>  value="<%=item.id%>"><%= item.name %></option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+
+
+        
+<div class="sub_input_box_row">
+            <div class="input_container">
+                <label for="">Dia</label>
+                <input required id="date" class="form_input_rdborder" name="date" type="date" placeholder="Dia" value="<%=abscence.date%>" onchange = "getDate()"></input>
+            </div>
+           
+            <div class="input_container">
+                <label for="">Hora</label>
+                <select required id="hours" class="form_input_rdborder" name="hour" placeholder="Hora" value="<%= abscence.hour %> "></select>
+            </div>
+        </div>
+<div class="sub_input_box_row">
+            <div class="input_container">
+                <label for="">Detalles</label>
+                <textarea required class="form_input_rdborder" rows="1"  name="info" placeholder="Detalle"><%= abscence.detail %> </textarea>
+            </div>
+            
+            <div class="input_container">
+                <label for="">Attachment</label>
+                <input class="form_input_rdborder"  placeholder="Attachment" name="attach" type="file" value=""></input>
+            </div>
+            </div>
+            <div class="sub_input_box_row">
+            <div class="bottom">
+                <button class="btn btn_secondary">Cancelar</button>
+                    <button class="btn btn_primary" type="submit">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+            </form>
+            </div>
+    </div>
+</body>
+    <% { %>
+     <script>
+        let selectHours = document.getElementById('hours')
+        const dateFormat = {
+            dateStyle: 'full'
+        }
+        const date = document.getElementById('date')
+        function getDate(){
+            selectHours.innerHTML = ""
+            let yearModified = String(date.value).slice(0,4)
+            let dateModified = String(date.value).slice(5,) + "-"+yearModified
+            const fullDate = Intl.DateTimeFormat('es-HN', dateFormat).format(new Date(dateModified || new Date())) 
+            let nameLength = String(fullDate).split(" ")[0].length
+            let dayNameUpper = String(fullDate).split(" ")[0].slice(0,1).toUpperCase()
+            let dayNameLower = String(fullDate).split(" ")[0].slice(1,nameLength)
+            const dayFullName = dayNameUpper + dayNameLower
+            
+            let daysData = JSON.stringify(`<%=jsonDays%>`).replaceAll('"', " ")
+            let jsonDays = JSON.parse((daysData).replaceAll("&#34;", '"')).days
+            // console.log(jsonDays)
+            let validity = String('<%=daysNames%>').split(",")
+            let classOnDay = validity.includes(dayFullName)
+            if(classOnDay == false){
+                alert("Fecha Invalida")
+            }else{
+                let classDay = jsonDays.find((el)=> el.Name == dayFullName)
+                for (item of classDay.Hours) {
+                    let hora = document.createElement('option')
+                    hora.value = item
+                    hora.innerText = item
+                    selectHours.append(hora)
+                }
+            }
+        }
+     </script>
+    <% } %>
+</html>

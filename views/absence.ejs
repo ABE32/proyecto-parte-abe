@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Esta es la vista de las ausencias, donde se hara un "formulario" para que el maestro la utilice
+    para sus registros -->
+    <!-- Se hace un select, se le da un id para utilizarlo con el DOM y una funcion en el onchange -->
+    <form action="/save" method="post">
+        <select required class="form_input_rdborder" id="classes" name="class" onchange="getId()">
+            <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
+                la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
+                en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
+            <% for(item of locals.dataClasses.dataClasses) { %>
+            <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
+            y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
+            (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
+                <option <%= (String(locals.id).split(",")[0].slice(5,) == item.id) ? "selected" : "" %>  value="<%=item.id%>"><%= item.detail + " - " + String(item.idGrade).slice(12) %></option>
+            <% } %>
+        </select>
+        <!-- Un input de tipo fecha para que revise la fecha en el momento que cambie (con un onchange) -->
+        <% let isDayOk = false %> 
+        <% let fecha %> 
+        <% if(locals.id != undefined){fecha = String(locals.id).split(",")[3].slice(6,16)} %> 
+        <input required class="form_input_rdborder" id="classDate" type="date" name="date" onchange="checkDate()" value="<%=fecha%>">
+        <% if (locals.id == undefined) { %>    
+            <select  disabled class="form_input_bgcolorborder"></select>
+            <select required name="name" class="form_input_rdborder" disabled></select>
+            <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder" disabled>
+            <input class="form_input_rdborder"  placeholder="Attachment" name="attach" type="file" value="" disabled></input>
+        <% } else{%>
+            <% let dia = String(locals.id).split(",")[2] || "" %> 
+            <% let diaNuevo = String(dia).slice(5, dia.length) %> 
+            <% let Valueid = String(locals.id).split(",")[0] %> 
+            <% let trueId = String(Valueid).slice(5,) %>
+            <% let classVal = locals.schedulesByTeacher.schedulesByTeacher.find((el)=> el.idClass == trueId) || ""%>
+            <% let classDays = classVal.days.filter((el)=> el[1] == 'TRUE') %> 
+            <% let classDaysNames = classDays.map((el)=> el[0]) %> 
+            <% let todayConfirmation = classDaysNames.find((el)=> el == diaNuevo)%> 
+            <% if(classDaysNames.includes(diaNuevo)){ %> 
+                <% isDayOk = true %> 
+            <% }else{%> 
+                <script>
+                    alert("Valor Invalido!!")
+                    window.location.href = `/absence`
+                </script>
+            <% } %>
+            <% if (isDayOk == true){ %>
+                <% let hoursOfDay = classDays.find((el)=> el[0] == todayConfirmation) %> 
+                <select required name="classHour" class="form_input_bgcolorborder"  >
+                    <% for(item of hoursOfDay[2]) { %>
+                        <option name="" id=""><%=item%></option>
+                    <% } %>
+                </select>
+                <% let idGrado = locals.dataClasses.dataClasses.find((el)=> el.id ==  trueId).idGrade %> 
+                <% let studentsByGrade = locals.valuesStudents.valuesStudents.filter((el)=> el.idGrade == idGrado) %>
+                <% let studentsNames = studentsByGrade.map((el)=> el.name) %>
+                <select required name="name" class="form_input_rdborder" >
+                    <% for(item of studentsByGrade){ %>
+                        <option value="<%=item.name%>"><%=item.name%></option>
+                    <% } %> 
+                </select>    
+                <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder">
+                <input class="form_input_rdborder" id="attach" name="attachment" placeholder="Attachment" name="attach" type="file"></input>
+                <button class="btn btn_primary" type="submit">Enviar</button>
+        <% } %> 
+            <% } %> 
+            
+    </form>
+                </body>
+                
+                
+<script type="text/javascript">
+    let select = document.getElementById('classes')
+    let hours = document.getElementById('hours')
+    async function getId(){
+        let value = select.options[select.selectedIndex].value
+        let detail = select.options[select.selectedIndex].innerText
+        return {value, detail}
+    }
+    // Obtencion del input fecha con el id
+    let date = document.getElementById('classDate')
+    // Funcion para revisar la fecha
+    async function checkDate(){
+        // Obtencion del valor de la fecha y conversion a una fecha de la clase Date
+        let selected = date.value
+        console.log(selected)
+        let yearModified = String(selected).slice(0,4)
+        let dateModified = String(selected).slice(5,) + "-"+yearModified
+        const dateFormat = {
+                dateStyle: 'full'
+              }
+              let today = Intl.DateTimeFormat('es-HN',dateFormat).format(new Date(dateModified||new Date()))
+            // Obtencion del dia en base a la fecha (por ejemplo que el 3 de Junio de 2022 se muestre como Viernes)
+              const todayLength =String(today).split(" ")[0].length
+              let upperToday= String(today).split(" ")[0].slice(0,1).toUpperCase() 
+              let lowerToday = String(today).split(" ")[0].slice(1, todayLength) 
+              const valueToday = upperToday + lowerToday; 
+              console.log(valueToday)
+              let days = await getId()
+            //   Redireccion de la pagina al terminar para anexar el id a la URL (como un objeto con 3 valores)
+            window.location.href = `/absence:{id:${days.value},detail:${days.detail}, day:${valueToday}, date:${selected}}`
+        }
+        let attachment = document.getElementById('attach')
+        attachment.onchange = ()=> {
+            console.log(attachment.files[0])
+            let img = document.createElement('div')
+            document.body.append(img)
+            let blob = new Blob([attachment.files[0]], {type: 'jpg'})  
+            img.setAttribute('style', `
+                height: 250px;
+                width: 250px;
+                background-image: url('${attachment.files[0]}')
+            `)
+        }
+    </script>
+</html>
