@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!-- ejs con un for of que muestra solamente los nombres de los grados -->
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Grado</th>
-            <th>Descripcion</th>
-            <th>Seccion</th>
-        </thead>
-        <tbody>
-            <% for(element of locals.valuesGrades) { %>
-                <tr>
-                    <td><%= element.id %> </td>
-                    <td><%= element.grade%> </td>
-                    <td><%= element.detail %> </td>
-                    <td><%= element.section%> </td>
-                </tr>
-            <% } %>
-            </tbody>
-    </table>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="grades.css" />
+		<title>Document</title>
+	</head>
+	<body class="tab_wid">
+        <div class="container_bts_menu">
+		<!-- ejs con un for of que muestra solamente los nombres de los grados -->
+		<table class="tab_wid">
+			<thead>
+				<th class="col2">ID</th>
+				<th class="col2">Grado</th>
+				<th class="col3">Descripcion</th>
+				<th class="col4">Seccion</th>
+			</thead>
+			<tbody>
+				<% let i = 1 %> <% for(element of locals.valuesGrades) { %> <%
+				i++ %> <%= console.log(i) %>
+				<tr <% if(i%2 == 0){%> class="table_row_grey" <%}%> >
+					<td class="col3"><%= element.id %></td>
+					<td class="col3"><%= element.grade%></td>
+					<td class="col3"><%= element.detail %></td>
+					<td class="col4"><%= element.section%></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+    </div>
+	</body>
 </html>
