@@ -4,47 +4,41 @@
 // Para tener acceso a las funciones de la api de google se usara un require
 // El require es una manera de importar datos, la sintaxis es " const variable = require(ruta del archivo donde se encuentra el contenido)"
 //Se crean 3 constantes, la primera para el acceso a los servicios, la segunda para obtener los datos del json, y la tercera con el ID de la hoja de calculo (el que se encuentra en la URL del archivo)
-const {google} = require('googleapis')
+const { google } = require('googleapis')
 const keys = require('./keys.json')
-const spreadsheetId = "1XeW6OVaGNysZcvuogzIT3IVSnMoEjHUTb0K96DoLuis"
+const spreadsheetId = '1XeW6OVaGNysZcvuogzIT3IVSnMoEjHUTb0K96DoLuis'
 
 //Se crea un nuevo cliente(solo se hara una vez para todo el proyecto)
-const client = new google.auth.JWT(
-    keys.client_email,
-    null,
-    keys.private_key,
-    ["https://www.googleapis.com/auth/spreadsheets"]
-    )
+const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
+  'https://www.googleapis.com/auth/spreadsheets',
+])
 
 //Hacer una autorizacion para probar el acceso a las hojas de calculo, si se logra autorizar ejecutara una funcion
-client.authorize().then(()=>{
-    console.log("Is Connected: " + client.email)
-    const email = client.email
-    getSheet().then(()=>{
-        module.exports.data = {
-            data,
-            email
-        }
-    })
+client.authorize().then(() => {
+  console.log('Is Connected: ' + client.email)
+  const email = client.email
+  getSheet().then(() => {
+    module.exports.data = {
+      data,
+      email,
+    }
+  })
 })
 
-
 // La constante sheets permite el acceso a la hoja, porque este envia el cliente a la API de Google para que la valide y permita la utilizacion de la misma
-const sheets = google.sheets({version: "v4", auth: client})
-const drive = google.drive({version: "v2", auth:client})
-
-
+const sheets = google.sheets({ version: 'v4', auth: client })
+const drive = google.drive({ version: 'v2', auth: client })
 
 //Funcion de Prueba para la validacion del cliente
-async function getSheet(){
-    const sheetOptions ={
-        spreadsheetId,
-        range: "Absence!A2:I6" 
-    }
+async function getSheet() {
+  const sheetOptions = {
+    spreadsheetId,
+    range: 'Absence!A2:I6',
+  }
 
-    const sheetData = await sheets.spreadsheets.values.get(sheetOptions)
-    data = sheetData.data.values
-    // console.log(data)
+  const sheetData = await sheets.spreadsheets.values.get(sheetOptions)
+  data = sheetData.data.values
+  // console.log(data)
 }
 
 //Se exportan la funcion, la constante Sheets(esto para evitar el tener que crearla en cada archivo), y el ID (para tener que crearlo en todos los archivos)
