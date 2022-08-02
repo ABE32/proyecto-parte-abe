@@ -1,0 +1,47 @@
+:root {
+	--primary: #242f6a;
+}
+
+body {
+	margin: 0%;
+}
+
+.buttons {
+	margin-top: 10%;
+	margin-left: 3%;
+	margin-right: 3%;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(50px, 1fr));
+	gap: 40px 30px;
+}
+
+.button {
+	color: white;
+	font-size: 30px;
+	font-family: 'Raleway', sans-serif;
+	border-radius: 0.4em;
+	border: 1px solid var(--primary);
+	background-color: #eeeeff;
+	box-shadow: 0px 6px 10px 1px var(--primary);
+	height: 150px;
+}
+
+.button:hover {
+	animation: growCard 1s forwards;
+}
+
+@keyframes growCard {
+	from {
+		box-shadow: 0px 6px 10px 1px var(--primary);
+		transform: scale(1);
+	}
+	to {
+		box-shadow: 0px 8px 10px 2px var(--primary);
+		transform: scale(1.05);
+	}
+}
+
+.btnTeachers {
+	background-image: url(/img/maestros.jpg);
+	background-size: cover;
+}
