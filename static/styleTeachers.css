@@ -1,0 +1,8 @@
+/*Table*/
+td{
+    font-weight: lighter;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-family: var(--tablefont_tai);
+    font-size: large;
+}

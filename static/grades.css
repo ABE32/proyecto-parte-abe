@@ -1,0 +1,39 @@
+.grades-main {
+	display: flex;
+	flex-flow: nowrap;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.grades {
+	display: flex;
+	flex-direction: column;
+}
+
+.col4 {
+	text-align: center;
+	width: 150px;
+	padding: 7px;
+}
+
+.col2 {
+	text-align: left;
+	width: 150px;
+	padding-left: 2%;
+}
+
+.col3 {
+	text-align: left;
+	width: 90px;
+	padding-right: 3px;
+}
+
+.col1 {
+	margin: 30px;
+	width: 150px;
+	padding-left: 16px;
+}
+
+body {
+	background-color: #f1f1f1;
+}

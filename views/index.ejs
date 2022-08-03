@@ -4,12 +4,34 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="index.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,600;1,400&display=swap"
+			rel="stylesheet"
+		/>
 		<title>Document</title>
 	</head>
 	<body>
-		<a href="/teachers">Maestros</a>
-		<a href="/Grades">Grados</a>
-		<a href="/schedules">Horarios</a>
-		<a href="/showAbsence">Ausencias</a>
+		<div class="buttons">
+			<button class="button btnTeachers" onclick="redirect('/teachers')">
+				Maestros
+			</button>
+			<button class="button" onclick="redirect('/Grades')">Grados</button>
+			<button class="button" onclick="redirect('/schedules')">
+				Horarios
+			</button>
+			<button class="button" onclick="redirect('/showAbsence')">
+				Ausencias
+			</button>
+		</div>
 	</body>
+
+	<script>
+		function redirect(link) {
+			window.location.href = link
+		}
+	</script>
 </html>
