@@ -10,6 +10,8 @@
 </head>
 <body>
     <div class="tab_cont">
+        <div class="container_bts_menu">
+            <h1 class="title_btn_menu">Tabla de Maestros</h1>
         <table class="tab_wid">
             <thead>
                 <tr>
@@ -30,9 +32,17 @@
             </tbody>
         </table>
     </div>
-    <form action="/save" method = "post"> 
-        <input type="text" name = "inputTeach" placeholder="Nombre del maestro" id="inputTeach">
-             <button type="submit" class="btn btn_primary">GUARDAR</button>
-    </form>
+</div>
+    <div  class="btn_actions">
+        <form action="/save" method = "post" class="formFlex"> 
+            <div>
+                <input type="text" name = "inputTeach" placeholder="Nombre del maestro" id="inputTeach" class="input">
+                <button type="submit" class="btn btn_primary">GUARDAR</button>
+            </div>
+            <div>
+                <a href="/"><button class="exit_button_lib btn">Inicio</button></a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -15,16 +15,22 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<div class="title_box"><h1>Sistema de Inasistencias</h1></div>
 		<div class="buttons">
 			<button class="button btnTeachers" onclick="redirect('/teachers')">
-				Maestros
+				<div class="btncolor">Maestros</div>
 			</button>
-			<button class="button" onclick="redirect('/Grades')">Grados</button>
-			<button class="button" onclick="redirect('/schedules')">
-				Horarios
+			<button class="button btnGrades" onclick="redirect('/Grades')">
+				<div class="btncolor">Grados</div>
 			</button>
-			<button class="button" onclick="redirect('/showAbsence')">
-				Ausencias
+			<button class="button btnHorario" onclick="redirect('/schedules')">
+				<div class="btncolor">Horarios</div>
+			</button>
+			<button
+				class="button btnAusencias"
+				onclick="redirect('/showAbsence')"
+			>
+				<div class="btncolor">Ausencias</div>
 			</button>
 		</div>
 	</body>
