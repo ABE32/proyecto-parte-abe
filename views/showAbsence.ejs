@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/showAbsence.css">
     <title>Document</title>
 </head>
 <body>
@@ -16,8 +19,9 @@
             </form>
         </div>
    
-
     <table>
+        <caption>Tabla de Inasistencias</caption>
+
         <thead>
             <th>ID</th>
             <th>ID Grado</th>
@@ -42,15 +46,29 @@
                     <td><%=item.date%></td>
                     <td><%=item.hour%></td>
                     <td><%=item.detail%></td>
-                    <td><button onclick="getAbsenceId('<%=item.id%>')">Actualizar</button></td>
-                    <td><button onclick="deleteAbsenceById('<%=item.id%>')">Eliminar</button></td>
+                    <td><button class="btn_primary-edit" onclick="getAbsenceId('<%=item.id%>')"><span class="material-icons">
+                        edit
+                        </span></button></td>
+                    <td><button class="btn_secondary-delete" onclick="deleteAbsenceById('<%=item.id%>')"><span class="material-icons">
+                        delete
+                        </span></button></td>
                 </tr>
                 <% index++ %> 
             <% } %> 
         </tbody>
     </table>
-    <button><a href="/absence">Crear nueva Ausencia</a></button>
+    <div class="botton">
+        <a href="/absence"><button class="btn btn_primary"><span class="material-icons">
+            add
+            </span></button></a>
+    <!-- <button class="btn btn_primary"><a href="/absence"></a>Crear nueva Ausencia</button> -->
+    <!--Juli-->
+    <a href="/"><button class="btn btn_secondary"><span class="material-icons">
+        home
+        </span></button></a>
+    <!-- <button class="btn btn_secondary"><a href="/absence">Inicio</a></button> -->
 
+</div>
     <script>
         const form = document.getElementById('formDelete')
         let body = document.getElementById('data')
