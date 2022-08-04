@@ -56,6 +56,14 @@ body {
 	font-size: 18px;
 	margin: 5px;
 	border-radius: 1.5em;
-	margin-left: 50px;
+	margin-left: 30px;
 	color: white;
+}
+
+.btn_primary-home {
+	background-color: var(--primary);
+	color: white;
+	border: none;
+	margin-left: 50px;
+	border-radius: 3px;
 }
