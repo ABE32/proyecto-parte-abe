@@ -5,31 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styleTeachers.css">
     <title>Document</title>
 </head>
 <body>
-    <table class="tab_wid">
-        <thead>
-            <th class="th_brdline">Id</th>
-            <th class="th_brdline">Name</th>
-            <th class="th_brdline">email</th>
-        </thead>
-        <tbody>
-
-                <% for(item of locals.valuesTeachers){ %>
+    <div class="tab_cont">
+        <div class="container_bts_menu">
+            <h1 class="title_btn_menu">Tabla de Maestros</h1>
+        <table class="tab_wid">
+            <thead>
                 <tr>
-                    <td><%= item.id%>  </td>
-                    <td><%= item.name %>  </td>
-                    <td><%= item.email %> </td>
-                    <% } %> 
-             
+                <th class="th_brdline col1 th" scope="col">Id</th>
+                <th class="th_brdline col2 th" scope="col">Name</th>
+                <th class="th_brdline col3 th" scope="col">email</th>
                 </tr>
-        </tbody>
-    </table>
-    <form action="/save" method = "post"> 
-        <input type="text" name = "inputTeach" placeholder="Nombre del maestro" id="inputTeach">
-             <button type="submit">GUARDAR</button>
-    </form>
-
+            </thead>
+            <tbody>
+             <% let i = 1 %> <% for(item of locals.valuesTeachers) { %> <%
+                i++ %> <%= console.log(i) %>
+             <tr <% if(i%2 == 0){%> class="table_row_grey" <%}%> >
+             <td class="col1 td" scope="row"><%= item.id%>  </td>
+             <td class="col2 td" scope="row"><%= item.name %>  </td>
+             <td class="col3 td" scope="row"><%= item.email %></td>
+             <% } %> 
+             </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <div  class="btn_actions">
+        <form action="/save" method = "post" class="formFlex"> 
+            <div>
+                <input type="text" name = "inputTeach" placeholder="Nombre del maestro" id="inputTeach" class="input">
+                <button type="submit" class="btn btn_primary">GUARDAR</button>
+            </div>
+            <div>
+                <a href="/"><button class="exit_button_lib btn">Inicio</button></a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,50 @@
+/*Table*/
+.tab_wid{
+   margin-bottom: 30px;
+}
+
+td{
+    font-weight: lighter;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-family: var(--tablefont_tai);
+    font-size: large;
+}
+
+.btn_actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+}
+
+input{
+    height: 20px;
+    margin-top: 7px;
+    margin-left: 60px;
+}
+.formFlex{
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex_ending{
+    display: flex;
+    flex-direction: row;
+}
+
+.exit_button_lib{
+    background-color: var(--validationColor2);
+    color: white;
+    justify-self:flex-end;
+    margin-right: 50px;
+}
+
+.exit_button_lib:hover{
+    opacity: 0.9;
+}
+
+.tab_cont{
+    border: none;
+}

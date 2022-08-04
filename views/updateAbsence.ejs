@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles_UpdateAbsence.css">
     <title>Document</title>
 </head>
 <body>
     <% let id =  String(locals.id).slice(1,) || "" %> 
     <% let abscence = locals.valuesAbsences.valuesAbsences.find(el=> el.id == id)%> 
-    <p><%= JSON.stringify(abscence) %> </p>
 
     <% let schedules = locals.schedulesByTeacher.schedulesByTeacher%>
     <% let classSchedule = schedules.find((el)=>el.idClass == abscence.idClass) %> 
@@ -21,11 +21,10 @@
     <% let jsonDays = JSON.stringify({'days': daysMap}) %> 
 
     <% let daysNames = days.map((el)=> el[0]) %>
-    <p><%= daysNames %> </p>
-
+<!--https://www.youtube.com/watch?v=dQw4w9WgXcQ-->
     
 <div class="container">
-    <div class="title_box">Formulario Beta</div>
+    <div class="title_box"><h1>Modificar Inasistencia</h1></div>
     <form action="/update:<%=abscence.id%> " method="post">
         <div class="input_box">
         <div class="sub_input_box_row">
