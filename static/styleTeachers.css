@@ -34,14 +34,15 @@ input{
     flex-direction: row;
 }
 
-.exit_button_lib{
-    background-color: var(--validationColor2);
-    color: white;
+.btn_home{
+    background-color: var(--primary);
+	color: white;
+	border: none;
     justify-self:flex-end;
     margin-right: 50px;
 }
 
-.exit_button_lib:hover{
+.btn_home:hover{
     opacity: 0.9;
 }
 
