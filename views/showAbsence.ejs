@@ -1,76 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
-    <title>Document</title>
-</head>
-<body>
-        <div class="modal">
-            <form method="post" id="formDelete">
-            <p>¿Desea eliminar este registro?</p>
-            <button type="submit" onclick="proceed()">Si</button>
-            <button onclick="goBack()">No</button>
-            </form>
-        </div>
-   
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/styles.css" />
+		<link rel="stylesheet" href="/showAbsence.css" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="modal">
+			<form method="post" id="formDelete">
+				<p>¿Desea eliminar este registro?</p>
+				<button type="submit" onclick="proceed()">Si</button>
+				<button onclick="goBack()">No</button>
+			</form>
+		</div>
 
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>ID Grado</th>
-            <th>ID Clase</th>
-            <th>ID Maestro</th>
-            <th>ID Alumno</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Descripcion</th>
-            <th></th>
-            <th></th>
-        </thead>
-        <tbody id="data">
-            <% let index = 1 %> 
-            <% for(item of locals.abscencesByTeacher.abscencesByTeacher){ %> 
-                <tr id="<%=item.id%>">
-                    <td><%=item.id%></td>
-                    <td><%=item.idGrade%></td>
-                    <td><%=item.idClass%></td>
-                    <td><%=item.idTeacher%></td>
-                    <td><%=item.idStudent%></td>
-                    <td><%=item.date%></td>
-                    <td><%=item.hour%></td>
-                    <td><%=item.detail%></td>
-                    <td><button onclick="getAbsenceId('<%=item.id%>')">Actualizar</button></td>
-                    <td><button onclick="deleteAbsenceById('<%=item.id%>')">Eliminar</button></td>
-                </tr>
-                <% index++ %> 
-            <% } %> 
-        </tbody>
-    </table>
-    <button><a href="/absence">Crear nueva Ausencia</a></button>
+		<table>
+			<caption>
+				Tabla de Inasistencias
+			</caption>
 
-    <script>
-        const form = document.getElementById('formDelete')
-        let body = document.getElementById('data')
-        function getAbsenceId(id){
-            window.location.href = `/updateAbsence:${id}`
-        }
-        function deleteAbsenceById(id){
-            let modal = document.getElementsByClassName('modal')
-            modal[0].setAttribute('style', 'display:block')
-           form.setAttribute('action', `/delete:${id}`)
-        }
+			<thead>
+				<th>ID</th>
+				<th>ID Grado</th>
+				<th>ID Clase</th>
+				<th>ID Maestro</th>
+				<th>ID Alumno</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+				<th>Descripcion</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody id="data">
+				<% let index = 1 %> <% for(item of
+				locals.abscencesByTeacher.abscencesByTeacher){ %>
+				<tr id="<%=item.id%>">
+					<td><%=item.id%></td>
+					<td><%=item.idGrade%></td>
+					<td><%=item.idClass%></td>
+					<td><%=item.idTeacher%></td>
+					<td><%=item.idStudent%></td>
+					<td><%=item.date%></td>
+					<td><%=item.hour%></td>
+					<td><%=item.detail%></td>
+					<td>
+						<button
+							class="btn_primary-edit"
+							onclick="getAbsenceId('<%=item.id%>')"
+						>
+							<span class="material-icons"> edit </span>
+						</button>
+					</td>
+					<td>
+						<button
+							class="btn_secondary-delete"
+							onclick="deleteAbsenceById('<%=item.id%>')"
+						>
+							<span class="material-icons"> delete </span>
+						</button>
+					</td>
+				</tr>
+				<% index++ %> <% } %>
+			</tbody>
+		</table>
+		<div class="botton">
+			<a href="/absence"
+				><button class="btn_secondary-delete">
+					<span class="material-icons"> add </span>
+				</button></a
+			>
 
-        function proceed(){
-           let element = document.getElementById(id)
-           body.removeChild(element)
-        }
+			<!--Juli-->
+			<a href="/"
+				><button class="btn_primary-edit">
+					<span class="material-icons"> home </span>
+				</button></a
+			>
+		</div>
+		<script>
+			const form = document.getElementById('formDelete')
+			let body = document.getElementById('data')
+			function getAbsenceId(id) {
+				window.location.href = `/updateAbsence:${id}`
+			}
+			function deleteAbsenceById(id) {
+				let modal = document.getElementsByClassName('modal')
+				modal[0].setAttribute('style', 'display:block')
+				form.setAttribute('action', `/delete:${id}`)
+			}
 
-        function goBack(){
-            window.location.href = '/showAbsence'
-        }
-    </script>
-</body>
+			function proceed() {
+				let element = document.getElementById(id)
+				body.removeChild(element)
+			}
+
+			function goBack() {
+				window.location.href = '/showAbsence'
+			}
+		</script>
+	</body>
 </html>

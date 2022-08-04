@@ -1,0 +1,60 @@
+/*Table*/
+body{
+    margin: 0;
+}
+.tab_wid{
+   margin-bottom: 30px;
+}
+
+td{
+    font-weight: lighter;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-family: var(--tablefont_tai);
+    font-size: large;
+}
+
+.btn_actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+}
+
+input{
+    height: 25px;
+    margin-left: 60px;
+}
+.formFlex{
+    width: 95.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex_ending{
+    display: flex;
+    flex-direction: row;
+}
+
+.btn_home{
+    justify-self: center;
+}
+
+.btn_home:hover{
+    opacity: 0.9;
+}
+
+.tab_cont{
+    border: none;
+}
+
+.btn{
+    margin-top: -8px;
+    background-color: var(--primary);
+	color: white;
+	border: none;
+}
+
+.md-10{
+    font-size: 10px;
+}

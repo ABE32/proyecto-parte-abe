@@ -1,0 +1,63 @@
+table{
+   width: 100%;
+   border: 1px solid #000;
+}
+
+th, td {
+   /*width: 25%;*/
+   text-align: center;
+   vertical-align: top;
+   /*border: 1px solid #000;*/
+   border-collapse: collapse;
+   padding: 0.3 em;
+}
+
+caption{
+   font-size: 50px;
+   padding: 0.3 em;
+   border: 2px solid rgb(8, 8, 71);
+
+   
+}
+a{
+   color: #000;
+   
+}
+.botton{
+   margin: 10px 30px 10px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.btn {
+   font-weight: 500 !important;
+   font-family: Georgia, 'Times New Roman', Times, serif, sans-serif !important;
+   text-transform: uppercase;
+   padding: 6px 14px;
+   font-size: 12px;
+   margin: 5px;
+   border-radius: 0.75em;
+}
+.btn_secondary {
+   background-color: var(--secondary);
+   color: var(--primary);
+   border: none;
+}
+
+
+ .btn_primary-edit{
+   background-color: var(--primary);
+    color: white;
+    border: none;
+    font-size: 30px;
+    border-radius: 2px;
+}
+
+.btn_secondary-delete{
+   background-color: var(--secondary);
+   color: var(--primary);
+   border: none;
+   font-size: 30px;
+   border-radius: 2px;
+}
+
