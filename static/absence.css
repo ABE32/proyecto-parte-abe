@@ -1,0 +1,37 @@
+body {
+    margin: 10px;
+    border: black;
+}
+
+.sub_containernew {
+    display: flex;
+    flex-direction: row;
+    width:max-content;
+    justify-content: space-between;
+    margin: auto;
+
+}
+
+
+.title_box1 h1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    margin:0 ;
+}
+
+.icon1{
+    width: 40px;
+    height: 5px;
+    font-size: 15px;
+    text-align: center;
+    margin: 2px;
+    
+}
+
+.icon2{
+    font-size: 20px;
+    margin-left: 10px;
+
+}
