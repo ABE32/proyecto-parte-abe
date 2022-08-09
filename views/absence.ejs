@@ -4,75 +4,138 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/absence.css">
     <title>Document</title>
 </head>
 <body>
-    <!-- Esta es la vista de las ausencias, donde se hara un "formulario" para que el maestro la utilice
-    para sus registros -->
-    <!-- Se hace un select, se le da un id para utilizarlo con el DOM y una funcion en el onchange -->
-    <form action="/save" method="post">
-        <select required class="form_input_rdborder" id="classes" name="class" onchange="getId()">
-            <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
-                la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
-                en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
-            <% for(item of locals.dataClasses.dataClasses) { %>
-            <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
-            y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
-            (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
-                <option <%= (String(locals.id).split(",")[0].slice(5,) == item.id) ? "selected" : "" %>  value="<%=item.id%>"><%= item.detail + " - " + String(item.idGrade).slice(12) %></option>
-            <% } %>
-        </select>
-        <!-- Un input de tipo fecha para que revise la fecha en el momento que cambie (con un onchange) -->
-        <% let isDayOk = false %> 
-        <% let fecha %> 
-        <% if(locals.id != undefined){fecha = String(locals.id).split(",")[3].slice(6,16)} %> 
-        <input required class="form_input_rdborder" id="classDate" type="date" name="date" onchange="checkDate()" value="<%=fecha%>">
-        <% if (locals.id == undefined) { %>    
-            <select  disabled class="form_input_bgcolorborder"></select>
-            <select required name="name" class="form_input_rdborder" disabled></select>
-            <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder" disabled>
-            <input class="form_input_rdborder"  placeholder="Attachment" name="attach" type="file" value="" disabled></input>
-        <% } else{%>
-            <% let dia = String(locals.id).split(",")[2] || "" %> 
-            <% let diaNuevo = String(dia).slice(5, dia.length) %> 
-            <% let Valueid = String(locals.id).split(",")[0] %> 
-            <% let trueId = String(Valueid).slice(5,) %>
-            <% let classVal = locals.schedulesByTeacher.schedulesByTeacher.find((el)=> el.idClass == trueId) || ""%>
-            <% let classDays = classVal.days.filter((el)=> el[1] == 'TRUE') %> 
-            <% let classDaysNames = classDays.map((el)=> el[0]) %> 
-            <% let todayConfirmation = classDaysNames.find((el)=> el == diaNuevo)%> 
-            <% if(classDaysNames.includes(diaNuevo)){ %> 
-                <% isDayOk = true %> 
-            <% }else{%> 
-                <script>
-                    alert("Valor Invalido!!")
-                    window.location.href = `/absence`
-                </script>
-            <% } %>
-            <% if (isDayOk == true){ %>
-                <% let hoursOfDay = classDays.find((el)=> el[0] == todayConfirmation) %> 
-                <select required name="classHour" class="form_input_bgcolorborder"  >
-                    <% for(item of hoursOfDay[2]) { %>
-                        <option name="" id=""><%=item%></option>
-                    <% } %>
-                </select>
-                <% let idGrado = locals.dataClasses.dataClasses.find((el)=> el.id ==  trueId).idGrade %> 
-                <% let studentsByGrade = locals.valuesStudents.valuesStudents.filter((el)=> el.idGrade == idGrado) %>
-                <% let studentsNames = studentsByGrade.map((el)=> el.name) %>
-                <select required name="name" class="form_input_rdborder" >
-                    <% for(item of studentsByGrade){ %>
-                        <option value="<%=item.name%>"><%=item.name%></option>
-                    <% } %> 
-                </select>    
-                <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder">
-                <input class="form_input_rdborder" id="attach" name="attachment" placeholder="Attachment" name="attach" type="file"></input>
-                <button class="btn btn_primary" type="submit">Enviar</button>
-        <% } %> 
-            <% } %> 
+    <div class="container">
+        <div class="title_box"><h1>Crear inasistencias</h1></div>
+        <div class="input_box">
+            <div class="sub_input_box_row">
+
+                <!-- Esta es la vista de las ausencias, donde se hara un "formulario" para que el maestro la utilice
+                para sus registros -->
+                <!-- Se hace un select, se le da un id para vb  utilizarlo con el DOM y una funcion en el onchange -->
+
+                <form action="/save" method="post">
+                    <div class="sub_input_box_row">
+
+              
+
+                    <div class="input_container">
+                        <label>Grado</label>
+
+                    <select required class="form_input_rdborder" id="classes" name="class" onchange="getId()">
+                        <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
+                            la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
+                            en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
+                        <% for(item of locals.dataClasses.dataClasses) { %>
+                        <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
+                        y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
+                        (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
+                            <option <%= (String(locals.id).split(",")[0].slice(5,) == item.id) ? "selected" : "" %>  value="<%=item.id%>"><%= item.detail + " - " + String(item.idGrade).slice(12) %></option>
+                        <% } %>
             
-    </form>
-                </body>
+                    </select>    </div>
+                    <!-- Un input de tipo fecha para que revise la fecha en el momento que cambie (con un onchange) -->
+                    <% let isDayOk = false %> 
+                    <% let fecha %> 
+                    <% if(locals.id != undefined){fecha = String(locals.id).split(",")[3].slice(6,16)} %> 
+                    <div class="input_container">
+                        <label >Fecha</label>
+
+                    <input required class="form_input_rdborder" id="classDate" type="date" name="date" onchange="checkDate()" value="<%=fecha%>"></div>
+                    <% if (locals.id == undefined) { %>    
+                        <div class="input_container">
+                        <label >Nombre</label>
+                        <select  disabled class="form_input_bgcolorborder"></select>
+                        </div>
+                    </div>
+                    <div class="sub_input_box_row">
+
+                         
+                        <div class="input_container">
+                            <label >Fecha</label>
+                        <select required name="name" class="form_input_rdborder" disabled></select>
+                        </div>
+                        <div class="input_container">
+                            <label >Razon de la Ausencia</label>
+                        <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder" disabled>
+                    </div></div>
+
+                    <div class="sub_input_box_row">
+                    <div class="input_container">
+                        <label>Abjunto</label>
+                        <input class="form_input_rdborder"  placeholder="Attachment" name="attach" type="file" value="" disabled></input>
+                    </div>
+                    <% } else{%>
+                        <% let dia = String(locals.id).split(",")[2] || "" %> 
+                        <% let diaNuevo = String(dia).slice(5, dia.length) %> 
+                        <% let Valueid = String(locals.id).split(",")[0] %> 
+                        <% let trueId = String(Valueid).slice(5,) %>
+                        <% let classVal = locals.schedulesByTeacher.schedulesByTeacher.find((el)=> el.idClass == trueId) || ""%>
+                        <% let classDays = classVal.days.filter((el)=> el[1] == 'TRUE') %> 
+                        <% let classDaysNames = classDays.map((el)=> el[0]) %> 
+                        <% let todayConfirmation = classDaysNames.find((el)=> el == diaNuevo)%> 
+                        <% if(classDaysNames.includes(diaNuevo)){ %> 
+                            <% isDayOk = true %> 
+                        <% }else{%> 
+                            <script>
+                                alert("Valor Invalido!!")
+                                window.location.href = `/absence`
+                            </script>
+                        <% } %>
+                        <% if (isDayOk == true){ %>
+                            <% let hoursOfDay = classDays.find((el)=> el[0] == todayConfirmation) %> 
+                            <div class="input_container">
+                                <label >Hora</label>
+
+                            <select required name="classHour" class="form_input_bgcolorborder"  >
+                                <% for(item of hoursOfDay[2]) { %>
+                                    <option name="" id=""><%=item%></option>
+                                <% } %> 
+                               </div>
+                            </select></div>
+
+                            <% let idGrado = locals.dataClasses.dataClasses.find((el)=> el.id ==  trueId).idGrade %> 
+                            <% let studentsByGrade = locals.valuesStudents.valuesStudents.filter((el)=> el.idGrade == idGrado) %>
+                            <% let studentsNames = studentsByGrade.map((el)=> el.name) %>
+                            <div class="input_container">
+                           <label>Nombre</label>
+                            <select required name="name" class="form_input_rdborder" >
+                                <% for(item of studentsByGrade){ %>
+                                    <option value="<%=item.name%>"><%=item.name%></option>
+                                <% } %></div>
+                            </select>    
+                        </div>
+                        <div class="input_container">
+                            <label>Razon de Ausencia</label>
+                        <input required name="detail" type="text" placeholder="Razon de Ausencia" class="form_input_rdborder">
+                        </div>
+                        <div class="input_container">
+                            <label>Adjunto</label>
+                        <input class="form_input_rdborder" id="attach" name="attachment" placeholder="Attachment" name="attach" type="file"></input>
+                        </div>           
+            </div>
+                  
+            <div class="sub_containernew">
+                <a href=""> <button class="btn btn_primary" type="submit" ><span class="material-icons  icon1">
+                  send
+                  </span></button></a> 
+              </form>
+                <a href="/" class="btn btn_primary" style="text-decoration: none ; width: 42px;height: 19px;margin-top: 15px; margin-left: 5px;margin-right: 5px ;"> <span class="material-icons icon2">
+                  home
+                  </span></a> 
+              </div>
+
+                 
+              <% } %>  
+              <% } %> 
+              
+        </div>
+        
                 
                 
 <script type="text/javascript">
@@ -119,4 +182,5 @@
             `)
         }
     </script>
+ 
 </html>
