@@ -1,25 +1,21 @@
 /*Variables*/
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
     /*General Colors*/
     --primary: #25246a;
     --primaryhoverColor1: #15143a;
     --primaryhoverColor2: #9190eb;
-    --secondary: #E8EAF6;
-    --validationColor1: #4CAF50;
-    --validationColor2: red;
-    --bgtablecolor1: rgb(232, 232, 232);
+    --secondary: #e8eaf6;
+    --validationColor1: #4caf50;
+    --validationColor2: #ff0000;
+    --bgtablecolor1: #e8e8e8;
     --tablefont_tai: 'Tai Heritage Pro', serif;
 }
 
-
 /*Main html*/
-
 a {
     margin: 10px;
 }
-
 
 /*Diseño General para inputs*/
 
@@ -57,9 +53,7 @@ input {
     color: white;
 }
 
-
 /*Este es un input checkbox*/
-
 .checkbox_container {
     display: flex;
     flex-direction: row;
@@ -76,9 +70,7 @@ input {
     border-radius: 1.5em;
 }
 
-
 /*Formularios*/
-
 .container {
     margin-left: 20%;
     margin-right: 20%;
@@ -95,7 +87,6 @@ input {
     justify-content: center;
     color: white;
 }
-
 .input_box {
     margin-left: 5px;
     margin-right: 5px;
@@ -140,7 +131,6 @@ input {
     display: flex;
     flex-direction: column;
 }
-
 .input_container p {
     text-align: center;
 }
@@ -152,9 +142,7 @@ input {
     justify-content: flex-end;
 }
 
-
 /*Butons*/
-
 .btn {
     font-weight: 500 !important;
     font-family: Roboto, sans-serif !important;
@@ -164,39 +152,32 @@ input {
     margin: 5px;
     border-radius: 1.5em;
 }
-
 .btn_primary {
     background-color: var(--primary);
     color: white;
     border: none;
 }
-
 .btn_primary_outline {
     background-color: var(--secondary);
     color: var(--primary);
     border: 1px solid var(--primary);
 }
-
 .btn_primary_text {
     color: var(--primary);
     border: none;
     background-color: transparent;
 }
-
 .btn_secondary {
     background-color: var(--secondary);
     color: var(--primary);
     border: none;
 }
-
 .btn:hover {
     opacity: 0.9;
 }
-
 .btn:active {
     opacity: 0.7;
 }
-
 
 /* Docs Styles */
 
@@ -220,7 +201,6 @@ pre .line::before {
     opacity: 0.5;
     color: rgb(205, 255, 250);
 }
-
 
 /*Doc botones contenedores*/
 
@@ -247,7 +227,6 @@ pre .line::before {
     margin-right: 150px;
     border-bottom: 2px solid red;
 }
-
 
 /*Doc Colors*/
 
@@ -296,7 +275,6 @@ pre .line::before {
     text-decoration: underline;
     text-decoration-color: var(--primary);
 }
-
 
 /*Doc Tables*/
 
