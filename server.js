@@ -9,6 +9,7 @@ const schedulesByTeacher = require('./scripts/form/absenceForm');
 const valuesAbsences = require('./scripts/form/getAbsence');
 const valuesStudents = require('./scripts/mantenimientos/readStudents');
 const abscencesByTeacher = require('./scripts/form/absenceForm');
+
 //Se requiere la libreria express
 const express = require('express');
 //const { json } = require('express/lib/response');
@@ -76,6 +77,10 @@ app.get('/updateAbsence', (req, res)=>{
 app.get('/updateAbsence:id', (req, res)=>{
     const id = req.params.id
     res.render('updateAbsence', {valuesAbsences,id,dataClasses, schedulesByTeacher, valuesStudents})
+})
+
+app.get('/login', (req, res)=>{
+    res.render('login')
 })
 
 //Esto permite definir el tipo de vista que queremos usar y que formato
