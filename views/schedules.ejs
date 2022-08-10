@@ -1,77 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="schedules.css">
+
+    <title>Horarios</title>
 </head>
+
 <body>
+
     <!-- tabla que muestra los horarios -->
-    <table>
-        <thead>
-            <th>id</th>
-            <th>idClase</th>
-            <th colspan="12">Dias</th>
-        </thead>
-        <tbody>
-            <tr>
-                <th colspan="2"></th>
-                <th>Lunes</th>
-                <th>Horas</th>
-                <th>Martes</th>
-                <th>Horas</th>
-                <th>Miercoles</th>
-                <th>Horas</th>
-                <th>Jueves</th>
-                <th>Horas</th>
-                <th>Viernes</th>
-                <th>Horas</th>
-                <th>Sabado</th>
-                <th>Horas</th>
-            </tr>
+    <div class="container">
+
+        <div class="title_box">Tabla de Horarios</div>
+        <!-- <div style="overflow-x:scroll;"> -->
+        <table class="tableSchedulesDetail" style="overflow-y:scroll">
+            <thead>
+                <th>id</th>
+                <th>idClase</th>
+                <th colspan="12">Dias</th>
+            </thead>
             <!-- ejs con un for of que muestra el id del horario, id de la clase, y muestra las clases y un checkbox que esta activo si esta marcado en la hoja de datos (se revisa en el script) -->
             <% for(element of locals.valuesSchedules) { %>
                 <tr>
-                    <td><%= element.id %></td>
-                    <td><%= element.idClass %></td>
-                    <td><input class="dayCheck" type="checkbox" value="<%=element.days[0][1]%>"></td>
-                    <td><%= element.days[0][2] %> </td>
-                    <td><input class="dayCheck" type="checkbox" value="<%= element.days[1][1]%>"></td>
-                    <td><%= element.days[1][2] %> </td>
-                    <td><input class="dayCheck" type="checkbox" value="<%= element.days[2][1]%>"></td>
-                    <td><%= element.days[2][2] %> </td>
-                    <td><input class="dayCheck" type="checkbox" value="<%= element.days[3][1]%>"></td>
-                    <td><%= element.days[3][2] %> </td>
-                    <td><input class="dayCheck" type="checkbox" value="<%= element.days[4][1]%>"></td>
-                    <td><%= element.days[4][2] %> </td>
-                    <td><input class="dayCheck" type="checkbox" value="<%= element.days[5][1]%>"></td>
-                    <td class="textSaturday"><%= element.days[5][2] %> </td>
+                    <td style="width: 20%; text-align: center; ">
+                        <%= element.id %>
+                    </td>
+
+                    <td style="text-align: center;">
+                        <%= element.idClass %>
+                    </td>
+                    <td>
+                        <div class="schedulesDetail" style="text-align: center;">
+                            <button id="btnMenu" class="schedulesDetailMenuAction btn btn-primary">Detalle</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div id="schedulesDetailMenu" class="schedulesDetailMenu">
+
+                            <table class="schedulesDetailMenuTable scroll">
+                                <thead>
+                                    <tr>
+                                        <th>Lu</th>
+                                        <th>H</th>
+                                        <th>Ma</th>
+                                        <th>H</th>
+                                        <th>Mi</th>
+                                        <th>H</th>
+                                        <th>Ju</th>
+                                        <th>H</th>
+                                        <th>Vi</th>
+                                        <th>H</th>
+                                        <th>Sa</th>
+                                        <th>H</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="dayCheck" type="checkbox" value="<%=element.days[0][1]%>"></td>
+                                        <td>
+                                            <select class="form_input_rdborder" name="" id="">
+                                                   <% element.days[0][2].forEach(element => { %>
+                                                    <option value="<%= element %> "><%= element %> </option>
+                                                <% }) %> 
+                                                </select>
+                                        </td>
+                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[1][1]%>"></td>
+                                        <td>
+                                            <select class="form_input_rdborder" name="" id="">
+                                                    <% element.days[1][2].forEach(element => { %>
+                                                     <option value="<%= element %> "><%= element %> </option>
+                                                 <% }) %> 
+
+                                                 </select>
+                                        </td>
+                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[2][1]%>"></td>
+                                        <td>
+                                            <select class="form_input_rdborder" name="" id="">
+                                                    <% element.days[2][2].forEach(element => { %>
+                                                     <option value="<%= element %> "><%= element %> </option>
+                                                 <% }) %> 
+                                                 </select>
+                                        </td>
+                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[3][1]%>"></td>
+                                        <td>
+                                            <select class="form_input_rdborder" name="" id="">
+                                                    <% element.days[3][2].forEach(element => { %>
+                                                     <option value="<%= element %> "><%= element %> </option>
+                                                 <% }) %> 
+                                                 </select>
+                                        </td>
+                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[4][1]%>"></td>
+                                        <td>
+                                            <select class="form_input_rdborder" name="" id="">
+                                                    <% element.days[4][2].forEach(element => { %>
+                                                     <option value="<%= element %> "><%= element %> </option>
+                                                 <% }) %> 
+                                                 </select>
+                                        </td>
+                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[5][1]%>"></td>
+                                        <td class="textSaturday">
+                                            <select class="form_input_rdborder" name="" id="">
+                                                    <% element.days[5][2].forEach(element => { %>
+                                                     <option value="<%= element %> "><%= element %> </option>
+                                                 <% }) %> 
+                                                 </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+                    </td>
                 </tr>
                 <!-- Mensaje del profe Serlis despues de rompernos la cabeza 2 horas intentando hacer el horario :D -->
                 <!-- CONTINUE PROGRAMANDO 😁 -->
                 <% } %>
-        </tbody>
-    </table>
+                    </tbody>
+        </table>
 
+    </div>
     <script>
         // Obtencion de todos los elementos de clase dayCheck (son los checkbox del HTML)
         let el = document.querySelectorAll('.dayCheck')
-        // ciclo forEach para evisar el valor de cada checkbox (el vlaor lo recibe como un ejs que obtiene TRUE o FALSE en base a la hoja de datos)
-        el.forEach((el)=>{
-            if(el.value == "TRUE"){
-                // Propiedad de las checkbox, en este caso con un if(revisa si el valor es TRUE, y si es asi cambiara la propiedad checked a true)
-                el.checked = true
+            // ciclo forEach para evisar el valor de cada checkbox (el vlaor lo recibe como un ejs que obtiene TRUE o FALSE en base a la hoja de datos)
+        el.forEach((el) => {
+                if (el.value == "TRUE") {
+                    // Propiedad de las checkbox, en este caso con un if(revisa si el valor es TRUE, y si es asi cambiara la propiedad checked a true)
+                    el.checked = true
+                }
+            })
+            // habia un problema con los sabados, este imprimia undefined, por lo que se les asigno una clase a las horas
+        const text = document.querySelectorAll('.textSaturday')
+            // y con un forEach se reviso si el valor era undefined para cambiarlo a texto vacio
+        text.forEach((el) => {
+            if (el.innerText == "undefined") {
+                el.innerText = ""
             }
         })
-        // habia un problema con los sabados, este imprimia undefined, por lo que se les asigno una clase a las horas
-        const text = document.querySelectorAll('.textSaturday')
-        // y con un forEach se reviso si el valor era undefined para cambiarlo a texto vacio
-        text.forEach((el)=>{
-            if(el.innerText == "undefined"){
-                el.innerText = ""
+
+        // Desplige del menu de detalle
+
+        const btnsMenu = document.querySelectorAll(".schedulesDetailMenuAction")
+        const schedulesDetailMenus = document.querySelectorAll(".schedulesDetailMenu")
+
+        btnsMenu.forEach((btnMenu, i) => {
+            let stateMenu = false
+            btnMenu.onclick = () => {
+                if (stateMenu == false) {
+                    schedulesDetailMenus[i].setAttribute("class", "schedulesDetailMenuActive")
+                    stateMenu = true
+                } else {
+                    schedulesDetailMenus[i].setAttribute("class", "schedulesDetailMenu")
+                    stateMenu = false
+                }
+
             }
         })
     </script>
 </body>
+
 </html>

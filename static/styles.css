@@ -1,6 +1,7 @@
 /*Variables*/
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-:root{
+:root {
     /*General Colors*/
     --primary: #25246a;
     --primaryhoverColor1: #15143a;
@@ -9,50 +10,57 @@
     --validationColor1: #4CAF50;
     --validationColor2: red;
     --bgtablecolor1: rgb(232, 232, 232);
-    --tablefont_tai:'Tai Heritage Pro', serif;
-    
+    --tablefont_tai: 'Tai Heritage Pro', serif;
 }
 
+
 /*Main html*/
-a{
+
+a {
     margin: 10px;
 }
 
+
 /*Diseño General para inputs*/
 
-input{
+input {
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.form_input_primary{
-  border: 2px solid var(--primary);
+.form_input_primary {
+    border: 2px solid var(--primary);
 }
 
-.form_input_primary:hover, .form_input_wplaceh:hover, .form_input_rdborder:hover,.form_input_bgcolorborder:hover{
-   border: 2px solid var(--primaryhoverColor2);
+.form_input_primary:hover,
+.form_input_wplaceh:hover,
+.form_input_rdborder:hover,
+.form_input_bgcolorborder:hover {
+    border: 2px solid var(--primaryhoverColor2);
 }
 
-.form_input_wplaceh{
-  border: 2px solid var(--primary);
-  background-color: var(--primary);
-  color: white;
+.form_input_wplaceh {
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
+    color: white;
 }
 
-.form_input_rdborder{
+.form_input_rdborder {
     border: 2px solid var(--primary);
     border-radius: 8px;
 }
 
-.form_input_bgcolorborder{
+.form_input_bgcolorborder {
     border: 2px solid var(--primary);
     background-color: var(--primary);
     border-radius: 1.5em;
     color: white;
- }
+}
+
 
 /*Este es un input checkbox*/
-.checkbox_container{
+
+.checkbox_container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -61,16 +69,17 @@ input{
     font-weight: bold;
 }
 
-
-.exit_button_lib{
-    padding:8px 16px;
+.exit_button_lib {
+    padding: 8px 16px;
     font-size: 14px;
     margin: 5px;
     border-radius: 1.5em;
 }
 
+
 /*Formularios*/
-.container{
+
+.container {
     margin-left: 20%;
     margin-right: 20%;
     margin-top: 5%;
@@ -80,13 +89,14 @@ input{
     background-color: var(--primary);
 }
 
-.title_box{
+.title_box {
     display: flex;
     flex-direction: row;
     justify-content: center;
     color: white;
 }
-.input_box{
+
+.input_box {
     margin-left: 5px;
     margin-right: 5px;
     background-color: white;
@@ -94,37 +104,35 @@ input{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
 }
 
-.sub_container{
+.sub_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.sub_input_box_row{
- display: flex;
- flex-direction: row;
- justify-content: center;
- margin-left: 30px;
- margin-right: 30px;
- display: grid;
- row-gap: 1px;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
+.sub_input_box_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: grid;
+    row-gap: 1px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-.sub_input_box_col{
+.sub_input_box_col {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: 30px;
     margin-right: 30px;
     column-gap: 1px;
-   }
+}
 
-.input_container{
+.input_container {
     margin: 5px;
     margin-bottom: 10px;
     margin-left: 30px;
@@ -132,51 +140,60 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     display: flex;
     flex-direction: column;
 }
-.input_container p{
+
+.input_container p {
     text-align: center;
 }
 
-.bottom{
+.bottom {
     margin: 10px 30px 10px 30px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
+
 /*Butons*/
-.btn{
+
+.btn {
     font-weight: 500 !important;
     font-family: Roboto, sans-serif !important;
     text-transform: uppercase;
-    padding:6px 14px;
+    padding: 6px 14px;
     font-size: 12px;
     margin: 5px;
     border-radius: 1.5em;
 }
-.btn_primary{
+
+.btn_primary {
     background-color: var(--primary);
     color: white;
     border: none;
 }
-.btn_primary_outline{
+
+.btn_primary_outline {
     background-color: var(--secondary);
     color: var(--primary);
-    border: 1px solid  var(--primary);
+    border: 1px solid var(--primary);
 }
-.btn_primary_text{
+
+.btn_primary_text {
     color: var(--primary);
     border: none;
     background-color: transparent;
 }
-.btn_secondary{
+
+.btn_secondary {
     background-color: var(--secondary);
     color: var(--primary);
     border: none;
 }
-.btn:hover{
+
+.btn:hover {
     opacity: 0.9;
 }
-.btn:active{
+
+.btn:active {
     opacity: 0.7;
 }
 
@@ -184,36 +201,37 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 /* Docs Styles */
 
 pre {
-counter-reset: line-numbering;
-background: #2c3e50;
-padding: 12px 0px 14px 0;
-width: 600px;
-color: #ecf0f1;
-line-height: 100%;
+    counter-reset: line-numbering;
+    background: #2c3e50;
+    padding: 12px 0px 14px 0;
+    width: 600px;
+    color: #ecf0f1;
+    line-height: 100%;
 }
 
 pre .line::before {
-content: counter(line-numbering);
-counter-increment: line-numbering;
-padding-right: 1em;
-/* space after numbers */
-padding-left: 8px;
-width: 1.5em;
-text-align: right;
-opacity: 0.5;
-color: rgb(205, 255, 250);
+    content: counter(line-numbering);
+    counter-increment: line-numbering;
+    padding-right: 1em;
+    /* space after numbers */
+    padding-left: 8px;
+    width: 1.5em;
+    text-align: right;
+    opacity: 0.5;
+    color: rgb(205, 255, 250);
 }
+
 
 /*Doc botones contenedores*/
 
-.title_btn_menu{
+.title_btn_menu {
     text-align: center;
     text-decoration: underline;
     text-decoration-color: var(--primary);
     font-family: var(--tablefont_tai);
 }
 
-.container_bts_menu{
+.container_bts_menu {
     border: solid 8px var(--);
     display: flex;
     flex-direction: column;
@@ -221,105 +239,104 @@ color: rgb(205, 255, 250);
     margin-left: 60px;
     margin-right: 60px;
     margin-bottom: 5px;
-    
 }
 
-.doc_show_container{
+.doc_show_container {
     margin-top: 20px;
     margin-left: 150px;
     margin-right: 150px;
     border-bottom: 2px solid red;
 }
 
+
 /*Doc Colors*/
 
-.color_cont{
+.color_cont {
     width: 100px;
     height: 50px;
     border: 2px solid black;
 }
 
-.bl_color1{
+.bl_color1 {
     background-color: var(--primary);
     color: white;
 }
 
-.bl_color2{
+.bl_color2 {
     background-color: var(--primaryhoverColor1);
     color: white;
 }
 
-.bl_color3{
+.bl_color3 {
     background-color: var(--primaryhoverColor2);
     color: white;
 }
 
-.color_val1{
+.color_val1 {
     background-color: var(--validationColor1);
     color: white;
 }
 
-.color_val2{
+.color_val2 {
     background-color: var(--validationColor2);
     color: white;
 }
 
-.wh_color1{
+.wh_color1 {
     background-color: var(--secondary);
     color: black;
 }
 
-.menu_button{
+.menu_button {
     color: white;
 }
 
-.title_btn_doc{
+.title_btn_doc {
     color: black;
     text-decoration: underline;
-    text-decoration-color: var(--primary) ;
+    text-decoration-color: var(--primary);
 }
+
 
 /*Doc Tables*/
 
-table{
+table {
     border-collapse: collapse;
 }
 
-.title_btn_menu{
+.title_btn_menu {
     margin-bottom: 40px;
 }
 
-.tab_cont{
+.tab_cont {
     border: 2px solid var(--primary);
-  
 }
 
-
-.tab_wid{
+.tab_wid {
     table-layout: auto;
     width: 100%;
 }
 
-.menu_img{
+.menu_img {
     width: 100px;
     height: 100px;
 }
 
-.menu_img h1{
+.menu_img h1 {
     margin-bottom: 100px;
 }
 
-thead{
+thead {
     background-color: var(--primary);
     color: white;
     font-weight: bold;
 }
 
-thead tr{
+thead tr {
     width: 100px;
 }
 
-th{
+th {
     font-weight: lighter;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -327,37 +344,36 @@ th{
     font-size: large;
 }
 
-.table_row_grey{
+.table_row_grey {
     background-color: var(--bgtablecolor1);
 }
 
-.col1{
+.col1 {
     text-align: center;
     margin: 30px;
     width: 150px;
 }
 
-.col2{
+.col2 {
     text-align: left;
     width: 150px;
 }
 
-.col3{
+.col3 {
     text-align: left;
     width: 90px;
 }
 
-.col4{
+.col4 {
     text-align: center;
     width: 150px;
 }
 
-.col5{
+.col5 {
     text-align: left;
     width: 110px;
 }
 
-
-.modal{
+.modal {
     display: none;
 }
