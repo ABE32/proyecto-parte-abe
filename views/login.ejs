@@ -4,30 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/login.css">
     <title>Login</title>
 </head>
 <body>
-    <div class="container">
-        <div class="form__container">
-            <div class="form__title">
-                <span>Login</span> </div>
-            <form class="form__input">
-                <div class="form__input-box">
-                    <input type="text" placeholder="Nombre Completo" pattern="[A-Za-z]+" required>
+    <div class="main">
+        <div class="container">
+            <div class="form__container">
+                <div class="form_subcontainer">
+                    <div class="form__title">
+                        <span>Login</span> 
+                    </div>
+                    <form class="form__input">
+                        <div class="form__input-box">
+                        <input type="text" placeholder="Nombre Completo" id="name" required>
+                        </div>
+                        <div class="form__input-box">
+                            <input type="email" placeholder="Email" pattern=".+gmail\.com" id="email" required>
+                        </div>
+                        <div class="form__input-box">
+                            <input type="password" placeholder="Contraseña"
+                            minlength="8" maxlength="10" id="password" required>
+                        </div>
                 </div>
-                <div class="form__input-box">
-                    <input type="email" placeholder="Email" pattern=".+@gmail\.com" size="30" required>
-                </div>
-                <div class="form__input-box">
-                    <input type="password" placeholder="Contraseña" pattern="[A-Za-z0-9]" minlength="8" maxlength="20" required>
-                </div>
-                <div class="form__actions ">
-                    <button type="submit" class="btn btn__login">Iniciar Sesión</button>
-                </div>
-            </form>
-        </div>
+                
+                    <div class="form__actions">
+                      <button type="submit" class="btn btn__login" onsubmit='validar()'>Iniciar Sesión</button>
+                      <button type="submit" class="btn btn__login"><span class="ri-google-fill"></span><span class="btn_text">Iniciar Sesión con Google</span></button>
+                    </div>
+            </div>
     </div>
+    </div>
+    <script src="/login.js"></script>
 </body>
 </html>
