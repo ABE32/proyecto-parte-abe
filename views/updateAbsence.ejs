@@ -10,22 +10,26 @@
 </head>
 <body>
     <% let id =  String(locals.id).slice(1,) || "" %> 
-    <% let abscence = locals.valuesAbsences.valuesAbsences.find(el=> el.id == id)%> 
-
+    <% let abscence = locals.valuesAbsences.valuesAbsences.find(el=> el.id == id)%>  
     <% let schedules = locals.schedulesByTeacher.schedulesByTeacher%>
+    <%= console.log(schedules) %> 
     <% let classSchedule = schedules.find((el)=>el.idClass == abscence.idClass) %> 
     <% let days = classSchedule.days.filter((el)=> el[1] == "TRUE") %> 
     <% let daysMap = []%>
     <% days.map((el)=> daysMap.push({"Name":el[0], "Day": el[1], "Hours": el[2]})) %>  
      <%# console.log(JSON.stringify(daysMap))%> 
+     <% let dataStudents = locals.valuesStudents.valuesStudents %> 
+     <% let jsonStudents = JSON.stringify({'students': dataStudents}) %> 
+     <% let dataClasses = locals.dataClasses.dataClasses %> 
+     <% let jsonClasses = JSON.stringify({'classes': dataClasses}) %> 
+     <% let dataSchedules = locals.schedulesByTeacher.schedulesByTeacher %> 
+     <% let jsonSchedules = JSON.stringify({'schedules': dataSchedules}) %> 
     <% let jsonDays = JSON.stringify({'days': daysMap}) %> 
-
     <% let daysNames = days.map((el)=> el[0]) %>
-<!--https://www.youtube.com/watch?v=dQw4w9WgXcQ-->
-    
+
 <div class="container">
     <div class="title_box"><h1>Modificar Inasistencia</h1></div>
-    <form action="/update:<%=abscence.id%> " method="post">
+    <form action="/updateAbsence/update:<%=abscence.id%>" method="post">
         <div class="input_box">
         <div class="sub_input_box_row">
             <div class="input_container">
@@ -45,11 +49,11 @@
    
     <div class="input_container">
         <label>Estudiante</label>
-        <select required class="form_input_rdborder" id="classes" name="student" onchange="getId()">
+        <select required class="form_input_rdborder" id="students" name="student">
             <!-- Aqui entra en accion el ejs, este utiliza un valor que es locals, este recibe los datos que se le pasan a 
                 la vista en el get, como este eraun objeto se le pone dataClasses.dataClasses (al definir un objeto hay que recordar que se pone el nombre y el valor, al ser igual se debe llamar 2 veces
                 en las otras vistas solo se debe usar una vez el nombre porque no son objetos) -->
-            <% for(item of locals.valuesStudents.valuesStudents.filter( el => el.idGrade == abscence.idGrade )) { %>
+            <% for(item of locals.valuesStudents.valuesStudents.filter(el => el.idGrade == abscence.idGrade)) { %>
             <!-- Como el contenido que se envio es una clase (que se hizo en los Scripts Read y se exporto al Server), se pueden utilizar sus propiedades
             y hacer una opcion, le asignamos el id en el value (se utilizara en el script), y como parte del contenido se anexara el nombre de la clase y el grado
             (el valor no esta en la vista, pero el contenido si), al ser un ciclo for of, no se utilizara dataClasses.dataClasses, si no que el nombre (item) -->
@@ -98,12 +102,23 @@
 </body>
     <% { %>
      <script>
+        const selectClasses= document.getElementById('classes')
+        const selectStudents = document.getElementById('students')
+        let newClass = selectClasses.value
+        let classesData = JSON.stringify(`<%=jsonClasses%>`).replaceAll('"', " ")
+        let classesJson = JSON.parse((classesData).replaceAll("&#34;", '"'))
+        let scheduledata = JSON.stringify(`<%=jsonSchedules%>`).replaceAll('"', " ")
+        let schedulesJson = JSON.parse((scheduledata).replaceAll("&#34;", '"'))
         let selectHours = document.getElementById('hours')
         const dateFormat = {
             dateStyle: 'full'
         }
+  
+
         const date = document.getElementById('date')
         function getDate(){
+            let newSelected = classesJson.classes.filter((el)=> el.id == newClass)[0].id
+            let selectedSchedule = schedulesJson.schedules.filter((el)=> el.idClass == newSelected)
             selectHours.innerHTML = ""
             let yearModified = String(date.value).slice(0,4)
             let dateModified = String(date.value).slice(5,) + "-"+yearModified
@@ -113,21 +128,42 @@
             let dayNameLower = String(fullDate).split(" ")[0].slice(1,nameLength)
             const dayFullName = dayNameUpper + dayNameLower
             
-            let daysData = JSON.stringify(`<%=jsonDays%>`).replaceAll('"', " ")
-            let jsonDays = JSON.parse((daysData).replaceAll("&#34;", '"')).days
-            // console.log(jsonDays)
-            let validity = String('<%=daysNames%>').split(",")
+            let daysSchedule = selectedSchedule[0].days
+            let classDays = daysSchedule.filter((el)=> el[1] == 'TRUE')
+            let validDays = classDays.map((el)=>el[0])
+            let validity = String(validDays).split(',')
             let classOnDay = validity.includes(dayFullName)
             if(classOnDay == false){
                 alert("Fecha Invalida")
             }else{
-                let classDay = jsonDays.find((el)=> el.Name == dayFullName)
-                for (item of classDay.Hours) {
+                let classDay = classDays.find((el)=> el[0] == dayFullName)
+                for (item of classDay[2]) {
                     let hora = document.createElement('option')
                     hora.value = item
                     hora.innerText = item
                     selectHours.append(hora)
                 }
+            }
+        }
+
+        function getId(){
+           newClass = selectClasses.value
+            let studentsData = JSON.stringify(`<%=jsonStudents%>`).replaceAll('"', " ")
+            let studentsJson = JSON.parse((studentsData).replaceAll("&#34;", '"'))
+            let classesData = JSON.stringify(`<%=jsonClasses%>`).replaceAll('"', " ")
+            let classesJson = JSON.parse((classesData).replaceAll("&#34;", '"'))
+
+       
+            selectStudents.innerHTML =''
+            let classSelected = classesJson.classes.filter(el=> el.id == selectClasses.value)[0].idGrade
+            console.log(classSelected)
+            let students = studentsJson.students.filter(el => el.idGrade == classSelected)
+            for (item of students) {
+                let newStudent = document.createElement('option')
+                    newStudent.value = item.id
+                    newStudent.innerText = item.name
+                    selectStudents.append(newStudent)
+                
             }
         }
      </script>

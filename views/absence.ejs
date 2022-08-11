@@ -171,15 +171,20 @@
         }
         let attachment = document.getElementById('attach')
         attachment.onchange = ()=> {
-            console.log(attachment.files[0])
-            let img = document.createElement('div')
-            document.body.append(img)
-            let blob = new Blob([attachment.files[0]], {type: 'jpg'})  
-            img.setAttribute('style', `
-                height: 250px;
-                width: 250px;
-                background-image: url('${attachment.files[0]}')
-            `)
+            console.log(attachment.value)
+            let fReader = new FileReader()
+            fReader.readAsDataURL(attachment.files[0])
+            fReader.onloadend = (event)=>{
+                let img = new Image()
+                console.log(event.target.result)
+                img.src = event.target.result
+                document.body.append(img)
+                img.setAttribute('style', `
+                    height: 250px;
+                    width: 250px;
+                `)
+            }
+
         }
     </script>
  

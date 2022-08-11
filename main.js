@@ -4,13 +4,35 @@
 // Para tener acceso a las funciones de la api de google se usara un require
 // El require es una manera de importar datos, la sintaxis es " const variable = require(ruta del archivo donde se encuentra el contenido)"
 //Se crean 3 constantes, la primera para el acceso a los servicios, la segunda para obtener los datos del json, y la tercera con el ID de la hoja de calculo (el que se encuentra en la URL del archivo)
+const fs = require('fs');
 const { google } = require('googleapis')
 const keys = require('./keys.json')
 const spreadsheetId = '1XeW6OVaGNysZcvuogzIT3IVSnMoEjHUTb0K96DoLuis'
+const credential = require('./credential.json');
 
-//Se crea un nuevo cliente(solo se hara una vez para todo el proyecto)
+// Cliente de oAuth2
+const oAuth2Client =  new google.auth.OAuth2(
+  credential.web.client_id,
+  credential.web.client_secret,
+  credential.web.redirect_uris[0]
+  )
+  
+  const scopes = ['https://www.googleapis.com/auth/spreadsheets',
+  'https://www.googleapis.com/auth/drive']
+
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: scopes,
+    include_granted_scopes: true
+  })
+
+  let userCredential = null
+  
+  
+  //Se crea un nuevo cliente(solo se hara una vez para todo el proyecto)
 const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
   'https://www.googleapis.com/auth/spreadsheets',
+  'https://www.googleapis.com/auth/drive'
 ])
 
 //Hacer una autorizacion para probar el acceso a las hojas de calculo, si se logra autorizar ejecutara una funcion
@@ -27,7 +49,7 @@ client.authorize().then(() => {
 
 // La constante sheets permite el acceso a la hoja, porque este envia el cliente a la API de Google para que la valide y permita la utilizacion de la misma
 const sheets = google.sheets({ version: 'v4', auth: client })
-const drive = google.drive({ version: 'v2', auth: client })
+const drive = google.drive({ version: 'v3', auth: client })
 
 //Funcion de Prueba para la validacion del cliente
 async function getSheet() {
@@ -48,4 +70,5 @@ async function getSheet() {
 // npm que instalamos (si copiamos eso manualmente no funcionara, se anexaran automaticamente despues de un npm install)
 module.exports.getSheet = getSheet
 module.exports.sheets = sheets
+module.exports.drive = drive
 module.exports.spreadsheetId = spreadsheetId

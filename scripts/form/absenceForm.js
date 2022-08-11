@@ -1,16 +1,19 @@
 //se requieren datos de todos los archivos para utilizarlos
 const {getAbsence} = require('./getAbsence');
-const {sheets, spreadsheetId, data, getSheet} = require('../../main');
+const {sheets, spreadsheetId, drive, getSheet} = require('../../main');
 const {valueInputOption} = require('../mantenimientos/teachers');
 const {getGrades} = require('../mantenimientos/readGrades')
 const {getTeachers} = require('../mantenimientos/readTeachers')
 const {getSchedules} = require('../mantenimientos/readSchedules');
 const {getStudents} = require('../mantenimientos/readStudents');
 const {getClasses} = require('../mantenimientos/readClasses');
-const { servicebroker } = require('googleapis/build/src/apis/servicebroker');
+const {createFile, filesScout} = require('./appendImg');
 const email = "serlismaldonado@gmail.com"
 let fecha = new Date()
 
+
+// createFile().then((r)=> console.log('ª'))
+// filesScout()
 let idTeacher 
 //  getTeachers().then((r)=> {idTeacher = r.find((el)=>el.email == email).id
 //     console.log(idTeacher)
@@ -90,6 +93,7 @@ exports.save = (req,res)=>{
     // getPromises().then((r)=>setAbsence(r.name, r.grade, r.idClass, r.idTeacher, valueDate, valueHour, dataLength, valueDetail, attachment).then(()=>getSheet()).then(()=> getAbsence()).then(()=>getClassByIdTeacher()).then(()=> res.redirect('showAbsence')))
 }
 
+
 exports.update = (req,res)=>{
     let idStudent = req.body.student
     let date = req.body.date
@@ -97,19 +101,19 @@ exports.update = (req,res)=>{
     let detailValue = req.body.info
     let attachment = req.body.attach
     let idAbsence = String(req.url).slice(8,)
-    console.log(idAbsence)
+    let valueClass = req.body.class
     async function getAbsenceInfo(){
         let index
-        let data
         let idTeacher
         let idClass
         let idGrade;
-        await getAbsence().then((r)=> r.forEach((el,i)=> {if(el.id == idAbsence){index = i, idTeacher = el.idTeacher, idClass = el.idClass, idGrade = el.idGrade}}))
-        return {index, idTeacher, idClass, idGrade}
+        await getAbsence().then((r)=> r.forEach((el,i)=> {if(el.id == idAbsence){index = i, idTeacher = el.idTeacher}}))
+        idGrade = await getGrade(valueClass)
+        return {index, idTeacher, idClass, idGrade, idGrade}
     }
-    getAbsenceInfo().then((r)=>{console.log("\n nombre:" + idStudent, "\n grado:" + r.idGrade, "\n clase:" + r.idClass, "\n teacher:" + r.idTeacher, "\n fecha:"+ date, "\n hora:"+ hour, "\n rango:" + r.index, "\n detalle:" + detailValue)})
+    getAbsenceInfo().then((r)=>{console.log("\n nombre:" + idStudent, "\n grado:" + r.idGrade, "\n clase:" + valueClass, "\n teacher:" + r.idTeacher, "\n fecha:"+ date, "\n hora:"+ hour, "\n rango:" + r.index, "\n detalle:" + detailValue)})
 
-    getAbsenceInfo().then((r)=>setAbsence(idStudent, r.idGrade, r.idClass, r.idTeacher, date, hour, r.index, detailValue, attachment).then(()=>getSheet()).then(()=>getAbsence()).then(()=>getClassByIdTeacher()).then(()=> res.redirect('showAbsence')))
+    getAbsenceInfo().then((r)=>setAbsence(idStudent, r.idGrade, valueClass, r.idTeacher, date, hour, r.index, detailValue, attachment).then(()=>getSheet()).then(()=>getAbsence()).then(()=>getClassByIdTeacher()).then(()=> res.redirect('../showAbsence')))
 }
 
 exports.delete = (req,res)=>{

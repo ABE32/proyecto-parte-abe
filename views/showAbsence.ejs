@@ -88,7 +88,7 @@
 			const form = document.getElementById('formDelete')
 			let body = document.getElementById('data')
 			function getAbsenceId(id) {
-				window.location.href = `/updateAbsence:${id}`
+				window.location.href = `/updateAbsence/:${id}`
 			}
 			function deleteAbsenceById(id) {
 				let modal = document.getElementsByClassName('modal')
