@@ -72,3 +72,4 @@ module.exports.getSheet = getSheet
 module.exports.sheets = sheets
 module.exports.drive = drive
 module.exports.spreadsheetId = spreadsheetId
+module.exports.client = {oAuth2Client, scopes, authUrl, userCredential}
