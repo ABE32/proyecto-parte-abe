@@ -12,14 +12,14 @@
 <body>
     <div class="main">
         <div class="container">
+            <div class="form__title">
+                <span>Login</span> 
+            </div>
             <div class="form__container">
-                <div class="form_subcontainer">
-                    <div class="form__title">
-                        <span>Login</span> 
-                    </div>
+                <div class="form__subcontainer">
                     <form class="form__input">
                         <div class="form__input-box">
-                        <input type="text" placeholder="Nombre Completo" id="name" required>
+                        <input type="text" placeholder="Nombre Completo" id="name" minlength="10" maxlength="40" required>
                         </div>
                         <div class="form__input-box">
                             <input type="email" placeholder="Email" pattern=".+gmail\.com" id="email" required>
@@ -28,8 +28,6 @@
                             <input type="password" placeholder="Contraseña"
                             minlength="8" maxlength="10" id="password" required>
                         </div>
-                </div>
-                
                     <div class="form__actions">
                       <button type="submit" class="btn btn__login" onsubmit='validar()'>Iniciar Sesión</button>
                       <button type="submit" class="btn btn__login"><span class="ri-google-fill"></span><span class="btn_text">Iniciar Sesión con Google</span></button>
