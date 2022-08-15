@@ -21,26 +21,32 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 0.5em;
-  
 }
 
 .form__container {
-  padding: 60px;
+  padding: 40px;
   box-sizing: border-box;
-  height: fit-content;
+  height: 390px;
   width: 100%;
-  max-width: 400px;
-  min-width: 200px;
   border: 6px solid #25246a;
   border-radius: 0.5em;
   background-color: white;
 }
 
+/* .form__subcontainer{
+  margin-bottom: 20px;
+} */
+
 .form__title {
+  padding-top: 20px;
   padding-bottom: 20px;
-  color: #25246a;
-  font-size: 20px;
+  color: white;
+  font-size: 35px;
   text-align: center;
+}
+
+.form__input{
+  margin-bottom: 20px;
 }
 
 .form__input input {
@@ -54,16 +60,6 @@ body {
   width: 100%;
   outline: none;
 }
-
-/* input::placeholder {
-  color: #25246a;
-  opacity: 0.5;
-}  */
-
-/* .form_subcontainer{
-  background-color: #25246a;
-  opacity: 0.5;
-} */
 
 .form__input-box {
   padding-top: 15px;
@@ -90,7 +86,8 @@ body {
 
 .form__actions {
   width: 100%;
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -108,6 +105,7 @@ body {
 
 .btn__login {
   margin-top: 10%;
+  margin-bottom: 3px;
   width: 75%;
   padding: 5px 10px;
   border: 5px solid #25246a;
