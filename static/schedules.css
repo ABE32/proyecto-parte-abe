@@ -1,0 +1,66 @@
+.containerTableSchedulesDetail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200fr, 1));
+    /* margin-left: 20%;
+    margin-right: 20%; */
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.tableSchedulesDetail {
+    background-color: white !important;
+    width: 100%;
+}
+
+.scroll {
+    overflow-x: scroll;
+}
+
+.tableSchedulesDetail tbody {
+    color: rgb(26, 26, 26);
+    background-color: rgb(248, 248, 248) !important;
+}
+
+.tableSchedulesDetail tbody tr {
+    outline: 1px solid;
+    outline-color: rgb(214, 217, 244);
+}
+
+.tableSchedulesDetail thead {
+    color: rgb(26, 26, 26);
+    background-color: rgb(233, 233, 233) !important;
+}
+
+.schedulesDetail {
+    margin: 15px !important;
+}
+
+.schedulesDetailMenuActive {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.schedulesDetailMenuActive tbody tr td {
+    text-align: center;
+    background-color: rgb(238, 238, 238);
+    padding: 5px;
+}
+
+.schedulesDetailMenuTable {
+    width: 100%;
+    outline: 1px solid;
+    outline-color: rgb(214, 217, 244);
+    /* overflow: auto; */
+}
+
+.schedulesDetailMenuTable th {
+    background-color: rgb(214, 217, 244);
+}
+
+.schedulesDetailMenuAction {}
+
+.schedulesDetailMenu {
+    width: 100% !important;
+    display: none;
+}
