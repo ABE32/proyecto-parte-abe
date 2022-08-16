@@ -33,10 +33,6 @@ body {
   background-color: white;
 }
 
-/* .form__subcontainer{
-  margin-bottom: 20px;
-} */
-
 .form__title {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -86,7 +82,6 @@ body {
 
 .form__actions {
   width: 100%;
-  /* margin-top: 15px; */
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -105,7 +100,7 @@ body {
 
 .btn__login {
   margin-top: 10%;
-  margin-bottom: 3px;
+  margin-bottom: -5px;
   width: 75%;
   padding: 5px 10px;
   border: 5px solid #25246a;
@@ -115,10 +110,12 @@ body {
 
 .btn__login:hover {
   background-color: #969a9f;
+  color: white;
 }
 
 .btn__login:active {
   background-color: #a5b7c5;
+  color: white;
 }
 
 /*Icono de Google*/
