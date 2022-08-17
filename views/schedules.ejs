@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="schedules.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../schedules.css">
 
     <title>Horarios</title>
 </head>
 
 <body>
+    <div class="container">
+        <form action="../schedules/search" method="post">
+            <input type="text" name="name" />
+            <select name="condition" id="">
+                <option value="teacher">Teachers</option>
+                <option value="class">Classes</option>
+                <option value="grade">Grades</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
 
     <!-- tabla que muestra los horarios -->
     <div class="container">
@@ -26,106 +36,115 @@
                 <th colspan="12">Dias</th>
             </thead>
             <!-- ejs con un for of que muestra el id del horario, id de la clase, y muestra las clases y un checkbox que esta activo si esta marcado en la hoja de datos (se revisa en el script) -->
-            <% for(element of locals.valuesSchedules) { %>
-                <tr>
-                    <td style="width: 20%; text-align: center; ">
-                        <%= element.id %>
-                    </td>
+            <% const schedules = locals.schedulesFiltered || locals.valuesSchedules%>
+                <% if(schedules.length >0){%>
+                    <% 
+           for(element of schedules){ %>
+                        <tr>
+                            <td style="width: 20%; text-align: center; ">
+                                <%= element.id %>
+                            </td>
 
-                    <td style="text-align: center;">
-                        <%= element.idClass %>
-                    </td>
-                    <td>
-                        <div class="schedulesDetail" style="text-align: center;">
-                            <button id="btnMenu" class="schedulesDetailMenuAction btn btn-primary">Detalle</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div id="schedulesDetailMenu" class="schedulesDetailMenu">
+                            <td style="text-align: center;">
+                                <%if(locals.clases != undefined){%>
+                                    <%= locals.clases.find(el=> el.id == element.idClass).detail  %>
+                                        <% }else{%>
+                                            <%= element.idClass %>
+                                                <%  } %>
+                            </td>
+                            <td>
+                                <div class="schedulesDetail" style="text-align: center;">
+                                    <button id="btnMenu" class="schedulesDetailMenuAction btn btn-primary">Detalle</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div id="schedulesDetailMenu" class="schedulesDetailMenu">
 
-                            <table class="schedulesDetailMenuTable scroll">
-                                <thead>
-                                    <tr>
-                                        <th>Lu</th>
-                                        <th>H</th>
-                                        <th>Ma</th>
-                                        <th>H</th>
-                                        <th>Mi</th>
-                                        <th>H</th>
-                                        <th>Ju</th>
-                                        <th>H</th>
-                                        <th>Vi</th>
-                                        <th>H</th>
-                                        <th>Sa</th>
-                                        <th>H</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input class="dayCheck" type="checkbox" value="<%=element.days[0][1]%>"></td>
-                                        <td>
-                                            <select class="form_input_rdborder" name="" id="">
+                                    <table class="schedulesDetailMenuTable scroll">
+                                        <thead>
+                                            <tr>
+                                                <th>Lu</th>
+                                                <th>H</th>
+                                                <th>Ma</th>
+                                                <th>H</th>
+                                                <th>Mi</th>
+                                                <th>H</th>
+                                                <th>Ju</th>
+                                                <th>H</th>
+                                                <th>Vi</th>
+                                                <th>H</th>
+                                                <th>Sa</th>
+                                                <th>H</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input class="dayCheck" type="checkbox" value="<%=element.days[0][1]%>"></td>
+                                                <td>
+                                                    <select class="form_input_rdborder" name="" id="">
                                                    <% element.days[0][2].forEach(element => { %>
                                                     <option value="<%= element %> "><%= element %> </option>
                                                 <% }) %> 
                                                 </select>
-                                        </td>
-                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[1][1]%>"></td>
-                                        <td>
-                                            <select class="form_input_rdborder" name="" id="">
+                                                </td>
+                                                <td><input class="dayCheck" type="checkbox" value="<%= element.days[1][1]%>"></td>
+                                                <td>
+                                                    <select class="form_input_rdborder" name="" id="">
                                                     <% element.days[1][2].forEach(element => { %>
                                                      <option value="<%= element %> "><%= element %> </option>
                                                  <% }) %> 
 
                                                  </select>
-                                        </td>
-                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[2][1]%>"></td>
-                                        <td>
-                                            <select class="form_input_rdborder" name="" id="">
+                                                </td>
+                                                <td><input class="dayCheck" type="checkbox" value="<%= element.days[2][1]%>"></td>
+                                                <td>
+                                                    <select class="form_input_rdborder" name="" id="">
                                                     <% element.days[2][2].forEach(element => { %>
                                                      <option value="<%= element %> "><%= element %> </option>
                                                  <% }) %> 
                                                  </select>
-                                        </td>
-                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[3][1]%>"></td>
-                                        <td>
-                                            <select class="form_input_rdborder" name="" id="">
+                                                </td>
+                                                <td><input class="dayCheck" type="checkbox" value="<%= element.days[3][1]%>"></td>
+                                                <td>
+                                                    <select class="form_input_rdborder" name="" id="">
                                                     <% element.days[3][2].forEach(element => { %>
                                                      <option value="<%= element %> "><%= element %> </option>
                                                  <% }) %> 
                                                  </select>
-                                        </td>
-                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[4][1]%>"></td>
-                                        <td>
-                                            <select class="form_input_rdborder" name="" id="">
+                                                </td>
+                                                <td><input class="dayCheck" type="checkbox" value="<%= element.days[4][1]%>"></td>
+                                                <td>
+                                                    <select class="form_input_rdborder" name="" id="">
                                                     <% element.days[4][2].forEach(element => { %>
                                                      <option value="<%= element %> "><%= element %> </option>
                                                  <% }) %> 
                                                  </select>
-                                        </td>
-                                        <td><input class="dayCheck" type="checkbox" value="<%= element.days[5][1]%>"></td>
-                                        <td class="textSaturday">
-                                            <select class="form_input_rdborder" name="" id="">
+                                                </td>
+                                                <td><input class="dayCheck" type="checkbox" value="<%= element.days[5][1]%>"></td>
+                                                <td class="textSaturday">
+                                                    <select class="form_input_rdborder" name="" id="">
                                                     <% element.days[5][2].forEach(element => { %>
                                                      <option value="<%= element %> "><%= element %> </option>
                                                  <% }) %> 
                                                  </select>
-                                        </td>
-                                    </tr>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Mensaje del profe Serlis despues de rompernos la cabeza 2 horas intentando hacer el horario :D -->
+                        <!-- CONTINUE PROGRAMANDO 😁 -->
+                        <% }} else{ %>
+                            <h1>No se encontraron resultados</h1>
+                            <% } %>
                                 </tbody>
-                            </table>
-
-
-
-                        </div>
-                    </td>
-                </tr>
-                <!-- Mensaje del profe Serlis despues de rompernos la cabeza 2 horas intentando hacer el horario :D -->
-                <!-- CONTINUE PROGRAMANDO 😁 -->
-                <% } %>
-                    </tbody>
         </table>
 
     </div>
