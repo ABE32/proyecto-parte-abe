@@ -1,7 +1,3 @@
-// const { drive } = require('googleapis/build/src/apis/drive');
-// const { file } = require('googleapis/build/src/apis/file');
-
-const { file } = require('googleapis/build/src/apis/file')
 const { drive } = require('../../main')
 const data = require('../../main')
 async function createFile() {
@@ -26,7 +22,7 @@ async function createFile() {
 		console.error(err)
 	}
 }
-const files = []
+let files = []
 
 function getFilesDrive() {
 	try {
@@ -41,7 +37,7 @@ function getFilesDrive() {
 					console.error('La API ha retornado un error: ' + err1)
 				} else {
 				}
-				const files = res1.data.files || []
+				files = res1.data.files || []
 				if (files.length) {
 					console.log('files: ')
 					files.map((el) => {
@@ -52,11 +48,6 @@ function getFilesDrive() {
 				}
 			},
 		)
-		// Array.prototype.push.apply(files, res.files)
-		// res.data.files.forEach(file => {
-		//     console.log('Se encontró: ' + file.name)
-		// });
-		// return res.data.files
 	} catch (err) {
 		console.error(err)
 	}

@@ -3,10 +3,8 @@ const dataClasses = require('../scripts/form/absenceForm')
 const schedulesByTeacher = require('../scripts/form/absenceForm')
 const valuesStudents = require('../scripts/mantenimientos/readStudents')
 const absence = require('../scripts/form/absenceForm')
-const { getFilesDrive } = require('../scripts/form/appendImg')
 
 routerAbsence.get('/', (req, res) => {
-	getFilesDrive()
 	res.render('absence', { dataClasses, schedulesByTeacher })
 })
 

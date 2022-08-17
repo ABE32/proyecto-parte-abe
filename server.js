@@ -45,16 +45,21 @@ data.client.oAuth2Client.on('tokens', (tokens) => {
 	console.log(tokens.access_token)
 })
 
-app.get('/', async (req, res, next) => {
-	if (process.env.TOKEN_AUTH == null || process.env.TOKEN_AUTH == undefined) {
-		console.log('Sin TOKEN')
+app.get('/', async (req, res) => {
+	if (
+		process.env.TOKEN_AUTH == null ||
+		process.env.TOKEN_AUTH == undefined ||
+		!process.env.TOKEN_AUTH
+	) {
+		console.log(process.env.TOKEN_AUTH, 'Sin TOKEN')
 		const respuesta = await res.writeHead(301, {
 			Location: data.client.authUrl,
 		})
-		if (respuesta) getToken(req, res).then(() => res.end())
+		if (respuesta.end()) await getToken(req, res).then(() => res.end())
+		res.render('index', data)
 	} else {
 		res.render('index', data)
-		getToken(req, res).then(() => res.end())
+		getToken(req, res)
 	}
 })
 
@@ -83,10 +88,12 @@ async function getToken(req, res) {
 		data.client.userCredential = process.env.TOKEN_AUTH
 		console.log(process.env.TOKEN_AUTH, 'Token guardado')
 	} else {
-		let { tokens } = await data.client.oAuth2Client.getToken(q.code)
-		data.client.oAuth2Client.setCredentials(tokens)
-		data.client.userCredential = tokens
-		process.env.TOKEN_AUTH = tokens
-		console.log(process.env.TOKEN_AUTH, 'Token actualizado')
+		if (q.code != undefined) {
+			let { tokens } = await data.client.oAuth2Client.getToken(q.code)
+			data.client.oAuth2Client.setCredentials(tokens)
+			data.client.userCredential = tokens
+			process.env.TOKEN_AUTH = tokens
+			console.log(process.env.TOKEN_AUTH, 'Token actualizado')
+		}
 	}
 }
