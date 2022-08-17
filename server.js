@@ -24,7 +24,7 @@ const absence = require('./scripts/form/absenceForm')
 const app = express()
 
 const port = 3000
-
+app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static('static'))
@@ -72,7 +72,6 @@ app.get('/absence:id', (req, res) => {
 app.post('/save', absence.save)
 app.post('/delete:id', absence.delete)
 
-app.set('view engine', 'ejs')
 app.listen(port)
 
 async function getToken(req, res) {
